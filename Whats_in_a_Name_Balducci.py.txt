@@ -1,0 +1,50 @@
+def vowel_count(name):                                          #Function that will count the vowels of the name
+    vowels= 'aeiouAEIOU'                                        # all of the possible present vowels in entered name
+    return sum(1 for char in name if char in vowels)            # counts and returns the amount of 
+
+
+
+def consonant_count(name):                                      #Function that will count the vowels of the name
+    consonants= 'qQwWrRtTyYpPsSdDfFgGhHjJkKlLzZxXcCvVbBnNmM'    # all of the possible present vowels in entered name
+    return sum(1 for char in name if char in consonants)        # counts and returns the amount of
+
+
+
+def reverse_name(name):                                         # function to reverse name
+    return name[::-1]                                           # returns name, starts nowhere ends nowehre and types ot backward
+
+
+
+
+def print_first_name(name):    
+   for letter in name:
+       if letter ==' ':
+            break
+       else:
+            output  += name
+            return output
+           
+
+def print_last_name(name):
+    for i in range(0,len(name)):
+        if name [i]==" ":
+            break
+        else:
+            beg = beg +1
+ 
+
+
+
+def main(): 
+    name = input ("enter your full name or text:")
+    choice = input( "Please enter a number: 1.count vowels, 2.count consonants, 3.reverse name, 4, print first name ")
+    if choice == "1":
+        print ( vowel_count(name),'vowel')
+    elif choice == "2":
+        print ( consonant_count(name),'consonants')
+    elif choice == "3":
+        print(reverse_name(name))
+    elif choice == "4":
+        print(print_first_name(name))
+
+main()
