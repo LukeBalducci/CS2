@@ -3,8 +3,7 @@ Author: Luke Balducci
 sources: Mr. Campbell, assaignmentsheet
 description: will take the dimensions and zipcode information and will return a ocde
 date: 10.23.2025
-bugs: only works whit commas in between
-
+bugs: only works with commas in between
 """
 
 def get_dimensions(length, width, height):
@@ -14,8 +13,8 @@ def get_dimensions(length, width, height):
         height = float(height)
     except:
         return "unmailable"
-    # used to get what package type 
-    # uses numbers instead of names to reduce possible error in spelling and for simplicity 
+    
+    # Categorize package class based on dimensions
     if 3.5 <= length <= 4.25 and 0.007 <= width <= 0.016 and 3.5 <= height <= 6:
         return "1"
     elif 4.25 <= length <= 6 and 0.007 <= width <= 0.015 and 6 <= height <= 11.5:
@@ -33,7 +32,6 @@ def get_dimensions(length, width, height):
 
 
 def get_zip_zone(zip1, zip2):
-    # use one if/elif set to find both zones
     def find_zone(zipcode):
         if 1 <= zipcode <= 6999:
             return 1
@@ -55,42 +53,39 @@ def get_zip_zone(zip1, zip2):
     
     if zone1 == -1 or zone2 == -1:
         return -1
-    # find the distance between the 2 zones and if negative uses ablsolute value
     return abs(zone1 - zone2)
 
 
 def get_cost(package_class, zone_distance):
     if package_class == "unmailable" or zone_distance < 0:
         return "unmailable"
- # calculates shipping cost bases on distance and package class
+
     if package_class == "1":
-        base, extra = 0.20, 0.03
+        base, extra = .20, .03
     elif package_class == "2":
-        base, extra = 0.37, 0.03
+        base, extra = .37, .03
     elif package_class == "3":
-        base, extra = 0.37, 0.04
+        base, extra = .37, .04
     elif package_class == "4":
-        base, extra = 0.60, 0.05
+        base, extra = .60, .05
     elif package_class == "5":
-        base, extra = 2.95, 0.25
+        base, extra = 2.95, .25
     elif package_class == "6":
-        base, extra = 3.95, 0.35
+        base, extra = 3.95, .35
     else:
         return "unmailable"
-    # multiplys "extra" by the zone distance to get accurate tax
+        
     total = base + (zone_distance * extra)
     return round(total, 2)
 
 
 def main():
-    user_input = input("Enter info in this specific order using only numbers and commas to seperate data (length,height,width,zip_from,zip_to): ")
+    user_input = input("Enter info (length,height,width,zip_from,zip_to): ")
 
-    # split by comma instead 
     data = user_input.split(",")
     if len(data) != 5:
         print("Error: Please enter exactly 5 values separated by commas.")
         return
-    # user must put commas inbetween information
     try:
         length = float(data[0])
         height = float(data[1])
@@ -98,16 +93,21 @@ def main():
         zip1 = int(data[3])
         zip2 = int(data[4])
     except:
-        print("error, only numbers excepted .")
+        print("error, only numbers excepted.")
         return
 
     package_class = get_dimensions(length, width, height)
     zone_distance = get_zip_zone(zip1, zip2)
-    total_cost= get_cost(package_class, zone_distance)
+    total_cost = get_cost(package_class, zone_distance)
 
-    print( total_cost)
+    
+    if total_cost == "unmailable":
+        print(total_cost)
+    else:
+        formatted = str(total_cost).lstrip('0')
+       
+        final_output = f"{total_cost:.2f}".lstrip('0')
+        
+        print(final_output)
 
-
-
-main() 
-
+main()
